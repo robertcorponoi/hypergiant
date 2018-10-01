@@ -1,14 +1,13 @@
 'use strict'
 
-const Reaction = require('./Reaction');
+const Fusion = require('./Fusion');
 
 /**
- * Hypergiants are super rare stars that are uncomprehendably large and tremendously
- * luminous.
+ * Hypergiants are an incredibly rare type of star that are uncomprehendably large and
+ * tremendously luminous.
  * 
- * This module is a signal-type event emitter which is created by attaching it to a 
- * variable or property and can then be dispatched at any time. When it is dispatched,
- * any attached functions will be called.
+ * This module is used to create a new event and when it is dispatched, any attached
+ * functions will be run. The event can also pass on data to the functions that react to it.
  * 
  * One of the big improvements over the native JavaScript event emitter is not having to
  * rely on typed events which can be misspelled.
@@ -20,50 +19,50 @@ module.exports = class Hypergiant {
   constructor() {
 
     /**
-     * The functions that are associated with this hypergiant.
+     * The collections of functions that are set to run when this Hypergiant
+     * is set to react.
      * 
-     * @prop {Set}
+     * @property {Set}
      * @readonly
      */
-    this._reactions = new Set();
+    this._fusions = new Set();
 
   }
 
   /**
-   * Add a new reaction to this hypergiant.
+   * Add a new fusion to this Hypergiant.
    * 
-   * To create energy, stars fuse elements in their core and energy is released.
-   * Whatever function you add as a reaction will be called whenever the hypergiant is
-   * illuminated.
+   * This adds the fusion to this Hypergiant's list of fusions and when the Hypergiant is reacting,
+   * it will process all fusions that are attached to it.
    * 
    * @since 0.1.0
    * 
-   * @param {Function} fn The function to be called when the hypergiant's illuminated method is called.
-   * @param {boolean} [once=false] Indicates whether this reaction should only be run once and then automatically removed from the reactions set.
+   * @param {Function} fn The function to be called when the hypergiant's react method is called.
+   * @param {boolean} [once=false] Indicates whether this fusion should only be run once and then automatically removed from the fusions set.
    */
-  react(fn, once = false) {
+  fuse(fn, once = false) {
 
-    this._reactions.add(new Reaction(fn, once));
+    this._fusions.add(new Fusion(fn, once));
 
   }
 
   /**
-   * Illuminate the hypergiant which is equal to dispatching an event.
+   * Dispatch this Hypergiant event by making it begin reacting.
    * 
-   * Illuminating the hypergiant calls any reactions that have been added to it.
-   * Any reaction that is set to be called only once will be deleted during this phase also.
+   * While this Hypergiant is reacting, any bound fusion functions are also called with the
+   * data provided.
    * 
-   * @param {*} data Any other data that should be passed to the reaction function/s associated with this hypergiant.
+   * @param {*} data Any other data that should be passed to the fusion function/s associated with this Hypergiant.
    * 
    * @since 0.1.0
    */
-  illuminate(data) {
+  react(data) {
 
-    for (let reaction of this._reactions) {
+    for (let fusion of this._fusions) {
 
-      reaction.run(data);
+      fusion.run(data);
 
-      if(reaction._fizzed) this._reactions.delete(reaction);
+      if(fusion._fizzed) this._fusions.delete(fusion);
 
     }
 

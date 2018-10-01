@@ -1,8 +1,6 @@
 'use strict'
 
-const Hypergiant = require('../index');
-const sinon = require('../node_modules/sinon');
-const chai = require('../node_modules/chai');
+import { Hypergiant } from '../Hypergiant.js';
 
 // Test all functionality of Hypergiant.
 describe('Hypergiant', () => {
@@ -12,17 +10,19 @@ describe('Hypergiant', () => {
   // make sure it processes the fusion function.
   describe('Creating and dispatching a new hypergiant', () => {
 
+    let clock;
+
     // Setup the Sinon fake timer before every test.
     beforeEach(() => {
 
-      this.clock = sinon.useFakeTimers();
+      clock = sinon.useFakeTimers();
 
     });
 
     // Reset the Sinon fake timer after every test.
     afterEach(() => {
 
-      this.clock.restore();
+      clock.restore();
 
     });
 
@@ -41,7 +41,7 @@ describe('Hypergiant', () => {
 
       }, 3000);
 
-      this.clock.tick(3010);
+      clock.tick(3010);
 
       chai.expect(result).to.equal('Hello World!');
 
@@ -68,7 +68,7 @@ describe('Hypergiant', () => {
 
       }, 1000);
 
-      this.clock.tick(4010);
+      clock.tick(4010);
 
       chai.expect(count).to.equal(4);
 
@@ -95,7 +95,7 @@ describe('Hypergiant', () => {
 
       }, 1000);
 
-      this.clock.tick(4010);
+      clock.tick(4010);
 
       chai.expect(count).to.equal(1);
 
@@ -128,7 +128,7 @@ describe('Hypergiant', () => {
 
       }, 1000);
 
-      this.clock.tick(5010);
+      clock.tick(5010);
 
       chai.expect(counts).to.deep.equal({ count1: 1, count2: 5 });
 
@@ -161,7 +161,7 @@ describe('Hypergiant', () => {
 
       }, 3000);
 
-      this.clock.tick(3010);
+      clock.tick(3010);
 
       chai.expect(result).to.equal('Hello Joe!');
 
