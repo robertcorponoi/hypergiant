@@ -1,6 +1,6 @@
 {
   "name": "hypergiant",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Hypergiant is a small and simple signal-like event emitter for Node.js and the browser.",
   "main": "index.js",
   "scripts": {

@@ -1,23 +1,22 @@
 'use strict'
 
 /**
- * A fusion is a function that is bound to a Hypergiant.
+ * A Task is a function that is bound to a Hypergiant.
  * 
- * When the Hypergiant that this function is bound to is reacting, this
- * function will be run.
+ * When the Hypergiant that this function is bound to is dispatched, this function will be run.
  * 
  * @since 0.1.0
  */
-class Fusion {
+class Task {
 
   /**
-   * @param {Function} fn The function to be called when this fusion is processed.
-   * @param {boolean} once Indicates whether this fusion will run once and then be deleted.
+   * @param {Function} fn The function to be called when this task is processed.
+   * @param {boolean} once Indicates whether this task will run once and then be deleted.
    */
   constructor(fn, once) {
 
     /**
-     * A reference to the function to bind to this fusion.
+     * A reference to the function to bind to this task.
      * 
      * @prop {Function}
      * @readonly
@@ -25,7 +24,7 @@ class Fusion {
     this._fn = fn;
 
     /**
-     * Indicates whether this fusion will only run once before being deleted.
+     * Indicates whether this task will only run once before being deleted.
      * 
      * @prop {boolean}
      * @readonly
@@ -33,40 +32,37 @@ class Fusion {
     this._once = once;
 
     /**
-     * The hypergiant uses this as an indication of whether this fusion should
-     * be removed on the current reaction.
+     * The Hypergiant uses this as an indication of whether this task should
+     * be removed on the current dispatch.
      * 
      * @prop {boolean}
      * @readonly
      * 
      * @default false
      */
-    this._fizzed = false;
+    this._deleted = false;
 
   }
 
   /**
-   * Run the function associated with this fusion.
+   * Run the function associated with this task.
    * 
    * @since 0.1.0
    * 
-   * @param {*} data Any other data that should be passed to this fusion.
+   * @param {...*} data Any other data that should be passed to this task.
    */
-  run(data) {
+  run(...data) {
 
-    this._fn(data);
+    this._fn(...data);
 
-    if (this._once) this._fizzed = true;
+    if (this._once) this._deleted = true;
 
   }
 
 }
 
 /**
- * Hypergiants are an incredibly rare type of star that are uncomprehendably large and
- * tremendously luminous.
- * 
- * This module is used to create a new event and when it is dispatched, any attached
+ * A Hypergiant used to create a new event and when it is dispatched, any attached
  * functions will be run. The event can also pass on data to the functions that react to it.
  * 
  * One of the big improvements over the native JavaScript event emitter is not having to
@@ -79,50 +75,49 @@ class Hypergiant {
   constructor() {
 
     /**
-     * The collections of functions that are set to run when this Hypergiant
-     * is set to react.
+     * The functions that are set to run when this Hypergiant is dispatched.
      * 
      * @property {Set}
      * @readonly
      */
-    this._fusions = new Set();
+    this._tasks = new Set();
 
   }
 
   /**
-   * Add a new fusion to this Hypergiant.
+   * Add a new task to this Hypergiant.
    * 
-   * This adds the fusion to this Hypergiant's list of fusions and when the Hypergiant is reacting,
-   * it will process all fusions that are attached to it.
+   * This adds the task to this Hypergiant's list of tasks and when the Hypergiant is dispatched,
+   * it will process all tasks that are attached to it.
    * 
    * @since 0.1.0
    * 
-   * @param {Function} fn The function to be called when the hypergiant's react method is called.
-   * @param {boolean} [once=false] Indicates whether this fusion should only be run once and then automatically removed from the fusions set.
+   * @param {Function} fn The function to be called when the hypergiant is dispatched.
+   * @param {boolean} [once=false] Indicates whether this task should only be run once and then automatically removed from the tasks set.
    */
-  fuse(fn, once = false) {
+  add(fn, once = false) {
 
-    this._fusions.add(new Fusion(fn, once));
+    this._tasks.add(new Task(fn, once));
 
   }
 
   /**
-   * Dispatch this Hypergiant event by making it begin reacting.
+   * Dispatch this Hypergiant event.
    * 
-   * While this Hypergiant is reacting, any bound fusion functions are also called with the
+   * After this Hypergiant is dispatched, any bound tasks are also called with the
    * data provided.
    * 
-   * @param {*} data Any other data that should be passed to the fusion function/s associated with this Hypergiant.
+   * @param {...*} data Any other data that should be passed to the tasks associated with this Hypergiant.
    * 
    * @since 0.1.0
    */
-  react(data) {
+  dispatch(...data) {
 
-    for (let fusion of this._fusions) {
+    for (let task of this._tasks) {
 
-      fusion.run(data);
+      task.run(...data);
 
-      if(fusion._fizzed) this._fusions.delete(fusion);
+      if (task._deleted) this._tasks.delete(task);
 
     }
 
