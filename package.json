@@ -1,6 +1,6 @@
 {
   "name": "hypergiant",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Hypergiant is a small and simple signal-like event emitter for Node.js and the browser.",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,12 @@
     "url": "https://github.com/robertcorponoi/hypergiant"
   },
   "keywords": [
-    "signal", "signals", "event", "events", "emit", "emitter"
+    "signal",
+    "signals",
+    "event",
+    "events",
+    "emit",
+    "emitter"
   ],
   "author": "Robert Corponoi",
   "license": "MIT",
@@ -19,5 +24,6 @@
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "sinon": "^6.3.3"
-  }
+  },
+  "dependencies": {}
 }
