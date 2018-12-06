@@ -15,25 +15,19 @@
 
 ## **Installation**
 
-To download this module through npm, simply use the following command.
+To download Hypergiant through NPM, simply use:
 
 ```
 $ npm install --save hypergiant
 ```
 
-To use Hypergiant in your Node.js project:
+To import Hypergiant as an ES6 module, import it from the es6 folder:
 
 ```js
-const Hypergiant = require('hypergiant');
+import { Hypergiant } from './node_modules/hypergiant/hypergiant.js';
 ```
 
-To import Hypergiant as an ES6 module:
-
-```js
-import { Hypergiant } from './node_modules/hypergiant/es6/hypergiant.js';
-```
-
-Lastly, to just reference Hypergiant by script:
+Lastly, to just reference Hypergiant by script use:
 
 ```html
 <script src="./node_modules/hypergiant/dist/hypergiant.min.js">
@@ -41,22 +35,25 @@ Lastly, to just reference Hypergiant by script:
 
 ## **Basic Usage**
 
-Hypergiant is a signal-like event emitter module named after hypergiant stars. This is not because Hypergiant is a huge application, in fact its very minimal, but because its powerful and effective. Visualizing how Hypergiant works is easier if you compare it to native JavaScript events. When you create a custom event in native JavaScript, you set a variable equal to a new custom event. In Hypergiant, you do the same thing but you don't put any data in the initialization like you would with a custom event.
+Hypergiant is a signal-like event emitter for Node.JS and the browser.
 
-Creating a new Hypergiant signal is as simple as:
+Hypergiant is very minimal and fast but also very powerful. It is comparable to events in native JavaScript except
+that Hypergiant events are emitted after the action has occurred and it doesn't rely on the events being referenced
+by string which can lead to misspellings.
+
+Creating a new Hypergiant event is as simple as:
 
 ```js
-const sayHello = new Hypergiant();
+const appStarted = new Hypergiant();
 ```
 
-You can set any type of variable or property (like a class property) to a new instance of Hypergiant and you can create as many Hypergiants as you would like.
+Any variable or property can be made into a Hypergiant event.
 
-Now there's probably no reason to create an event unless you want to listen for it to do something else. In native JavaScript events you would listen to the window event but that relies on a typed event which can be misspelled.
-
-In Hypergiant it's a bit different, you have to assign one or more functions through the use of the `add` method of the Hypergiant and whenever the event is dispatched, the functions attached to the Hypergiant will be called.
+Now an event isn't very useful if there isn't a response to the event when it happens. To add a task that will run
+whenever the event is dispatched, use the `add` method on the created Hypergiant event:
 
 ```js
-sayHello.add(hello);
+appStarted.add(hello);
 
 function hello(name) {
 
@@ -65,20 +62,18 @@ function hello(name) {
 }
 ```
 
-In the above example, the Hypergiant created previously is set to call the hello function when the event is dispatched. Notice that the hello function takes a parameter of name. This is because when you dispatch an event from the Hypergiant, you can return any amount of data to the function that is added to it.
-
-Note that you can add as many functions as you would like to a Hypergiant.
+You can add as many methods as you would like to respond to a Hypergiant event.
 
 Lastly, it's time to dispatch the Hypergiant event with the `dispatch` method:
 
 ```js
-messageSent.dispatch('Bob');
+appStarted.dispatch('Bob');
 
 // The console will display the following message:
 // => Hello Bob!
 ```
 
-Any parameters passed with `dispatch` will also be passed to the fusion functions attached to it.
+Any parameters passed with `dispatch` will also be passed to the tesk functions attached to it.
 
 ## **API**
 

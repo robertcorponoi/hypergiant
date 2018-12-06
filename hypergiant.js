@@ -93,7 +93,7 @@ class Task {
  * 
  * @since 0.1.0
  */
-class Hypergiant {
+export class Hypergiant {
 
   constructor() {
 

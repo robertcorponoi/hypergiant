@@ -1,6 +1,6 @@
 'use strict'
 
-const Task = require('./Task');
+const Task = require('./task');
 
 /**
  * A Hypergiant used to create a new event and when it is dispatched, any attached
@@ -35,10 +35,14 @@ module.exports = class Hypergiant {
    * 
    * @param {Function} fn The function to be called when the hypergiant is dispatched.
    * @param {boolean} [once=false] Indicates whether this task should only be run once and then automatically removed from the tasks set.
+   * 
+   * @returns {Hypergiant} Returns this for chaining.
    */
   add(fn, once = false) {
 
     this._tasks.add(new Task(fn, once));
+
+    return this;
 
   }
 

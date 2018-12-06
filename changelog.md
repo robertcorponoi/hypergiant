@@ -10,3 +10,9 @@
 ## 2.0.1
 
 * Added the changelog.
+
+## 2.1.0
+
+* Added a `timesCalled` property to each task.
+* Updated all test cases.
+* Made the `add` method chainable.

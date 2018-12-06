@@ -42,6 +42,27 @@ module.exports = class Task {
      */
     this._deleted = false;
 
+    /**
+     * The number of times that this task has been run.
+     * 
+     * @property {number}
+     * @readonly
+     */
+    this._timesCalled = 0;
+
+  }
+
+  /**
+   * Return the number of times that this task has been called.
+   * 
+   * @since 0.1.0
+   * 
+   * @returns {number} Returns the number of times that this task has been called.
+   */
+  get timesCalled() {
+
+    return this._timesCalled;
+
   }
 
   /**
@@ -54,6 +75,8 @@ module.exports = class Task {
   run(...data) {
 
     this._fn(...data);
+
+    this._timesCalled++;
 
     if (this._once) this._deleted = true;
 

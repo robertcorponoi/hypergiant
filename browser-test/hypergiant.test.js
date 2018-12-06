@@ -1,8 +1,6 @@
 'use strict'
 
-const Hypergiant = require('../index');
-const chai = require('../node_modules/chai');
-const sinon = require('../node_modules/sinon');
+import { Hypergiant } from '../hypergiant.js';
 
 let clock;
 
@@ -32,7 +30,7 @@ describe('Creating a new Hypergiant', () => {
 
 });
 
-describe('Adding one or more tasks to a Hyergiant event', () => {
+describe('Adding one or more tasks to a Hypergiant event', () => {
 
   it('should add one task to a Hypergiant event', () => {
 
