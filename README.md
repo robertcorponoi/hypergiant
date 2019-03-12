@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" height="250" src="./Hypergiant.png">
+  <img width="250" height="250" src="./hypergiant.png">
 </p>
 
 <h1 align="center">Hypergiant</h1>
@@ -21,16 +21,16 @@ To download Hypergiant through NPM, simply use:
 $ npm install --save hypergiant
 ```
 
-To import Hypergiant as an ES6 module, import it from the es6 folder:
+and use it in your Node environment as so:
 
 ```js
-import { Hypergiant } from './node_modules/hypergiant/hypergiant.js';
+const Hypergiant = require('hypergiant');
 ```
 
-Lastly, to just reference Hypergiant by script use:
+or import it browser side as an ES6 module:
 
-```html
-<script src="./node_modules/hypergiant/dist/hypergiant.min.js">
+```js
+import Hypergiant from './node_modules/hypergiant/hypergiant.js';
 ```
 
 ## **Basic Usage**
