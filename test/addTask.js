@@ -3,7 +3,7 @@
 const chai = require('chai');
 const Hypergiant = require('../index');
 
-describe('Adding tasks to a Hypergiant instance', () => {
+describe('Adding tasks to a signal', () => {
 
 	it('should add a single task', () => {
 

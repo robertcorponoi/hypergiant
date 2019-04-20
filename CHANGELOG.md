@@ -3,6 +3,7 @@
 
 * Updated packages to remove vulnerabilities.
 * Added @babel/plugin-transform-runtime and @babel/runtime to minimize reuse.
+* Added ability to remove one or all tasks from a signal along with testing.
 
 2.2.0 / 2019-03-11
 ==================

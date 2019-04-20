@@ -6,7 +6,7 @@ const Hypergiant = require('../index');
 
 let clock;
 
-describe('Dispatching a Hypergiant instance', () => {
+describe('Dispatching a signal', () => {
 
 	beforeEach(() => clock = sinon.useFakeTimers());
 

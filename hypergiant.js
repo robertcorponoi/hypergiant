@@ -4,6 +4,8 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
+var classCallCheck = _classCallCheck;
+
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -20,6 +22,8 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+var createClass = _createClass;
+
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -34,6 +38,8 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
+
+var defineProperty = _defineProperty;
 
 var Task =
 /*#__PURE__*/
@@ -77,15 +83,15 @@ function () {
    * @param {boolean} once Indicates whether this task will only run once before being deleted or not.
    */
   function Task(fn, once) {
-    _classCallCheck(this, Task);
+    classCallCheck(this, Task);
 
-    _defineProperty(this, "fn", void 0);
+    defineProperty(this, "fn", void 0);
 
-    _defineProperty(this, "once", void 0);
+    defineProperty(this, "once", void 0);
 
-    _defineProperty(this, "delete", false);
+    defineProperty(this, "delete", false);
 
-    _defineProperty(this, "timesCalled", 0);
+    defineProperty(this, "timesCalled", 0);
 
     this.fn = fn;
     this.once = once;
@@ -99,7 +105,7 @@ function () {
    */
 
 
-  _createClass(Task, [{
+  createClass(Task, [{
     key: "run",
     value: function run() {
       this.fn.apply(this, arguments);
@@ -112,36 +118,35 @@ function () {
 }();
 
 /**
- * Hypergiant is used to create signal-like events that run when the Hypergiant
- * is emitted.
- * 
- * One of the big advtanges that Hypergiant has over native JavaScript events is
- * the ability of using named events instead of relying on typing.
- * 
+ * Hypergiant is used to create signals that run a task when emitted.
+ *
+ * One of the biggest advtantages that signals have over native JavaScript events
+ * is that they don't rely on correct typing.
+ *
  * @author Robert Corponoi
  * 
- * @version 0.1.0
+ * @version 2.3.0
  */
 
 var Hypergiant =
 /*#__PURE__*/
 function () {
   function Hypergiant() {
-    _classCallCheck(this, Hypergiant);
+    classCallCheck(this, Hypergiant);
 
-    _defineProperty(this, "tasks", new Set());
+    defineProperty(this, "tasks", new Set());
   }
 
-  _createClass(Hypergiant, [{
+  createClass(Hypergiant, [{
     key: "add",
 
     /**
-     * Adds a new task for this instance of Hypergiant to run when emitted.
+     * Add a new signal.
      * 
      * @since 0.1.0
      * 
-     * @param {Function} fn The method that should be called when emitted.
-     * @param {boolean} [once=false] Indicates whether this task should only be called once and then deleted.
+     * @param {Function} fn The method that should be called when the signal is dispatched.
+     * @param {boolean} [once=false] Indicates whether this signal should only be dispatched once and then deleted.
      * 
      * @returns {Hypergiant} Returns this for chaining.
      */
@@ -186,6 +191,65 @@ function () {
           }
         }
       }
+    }
+    /**
+     * Removes a task from this signal by name.
+     *
+     * @since 2.3.0
+     *
+     * @param {Function} The task to remove.
+     *
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+
+  }, {
+    key: "remove",
+    value: function remove(fn) {
+      var fnToString = fn.toString();
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = this.tasks[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var task = _step2.value;
+          var taskFnToString = task.fn.toString();
+
+          if (fnToString === taskFnToString) {
+            this.tasks.delete(task);
+            break;
+          }
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      return this;
+    }
+    /**
+     * Removes all tasks from this signal.
+     *
+     * @since 2.3.0
+     *
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+
+  }, {
+    key: "removeAll",
+    value: function removeAll() {
+      this.tasks.clear();
+      return this;
     }
   }]);
 

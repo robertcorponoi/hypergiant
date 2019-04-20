@@ -41,16 +41,16 @@ Hypergiant is very minimal and fast but also very powerful. It is comparable to 
 that Hypergiant events are emitted after the action has occurred and it doesn't rely on the events being referenced
 by string which can lead to misspellings.
 
-Creating a new Hypergiant event is as simple as:
+Creating a new signal is as simple as:
 
 ```js
 const appStarted = new Hypergiant();
 ```
 
-Any variable or property can be made into a Hypergiant event.
+Any variable or property can be made into a signal.
 
-Now an event isn't very useful if there isn't a response to the event when it happens. To add a task that will run
-whenever the event is dispatched, use the `add` method on the created Hypergiant event:
+Now a signal isn't very useful if there isn't a response to the event when it happens. To add a task that will run
+whenever the event is dispatched, use the `add` method on the created signal:
 
 ```js
 appStarted.add(hello);
@@ -62,9 +62,9 @@ function hello(name) {
 }
 ```
 
-You can add as many methods as you would like to respond to a Hypergiant event.
+You can add as many methods as you would like to respond to a signal.
 
-Lastly, it's time to dispatch the Hypergiant event with the `dispatch` method:
+Lastly, it's time to dispatch the signal with the `dispatch` method:
 
 ```js
 appStarted.dispatch('Bob');
@@ -83,13 +83,13 @@ Add takes in a function and an optional parameter named `once` that can be set t
 
 | param | type     | description                                                                                | default |
 |-------|----------|--------------------------------------------------------------------------------------------|---------|
-| fn    | Function | The function to be called when the Hypergiant is dispatched.                               |         |
+| fn    | Function | The function to be called when the signal is dispatched.                                   |         |
 | once  | false    | Indicates whether this task should happen only once and then be automatically deleted.     | false   |
 
 ```js
 const sol = new Hypergiant();
 
-// When sol is dispatched, the `sayHello` function will be called once and then deleted from the Hypergiant's task list.
+// When sol is dispatched, the `sayHello` function will be called once and then deleted from the signal's task list.
 sol.add(sayHello, true);
 
 function sayHello(name1, name2) {
@@ -101,18 +101,18 @@ function sayHello(name1, name2) {
 
 ### **dispatch**
 
-Dispatch sends out the Hypergiant event and any attached tasks will be called.
+Dispatch sends out the signal and any attached tasks will be called.
 
 This method can take any number of parameters which will act as data sent to the tasks.
 
 | param   | type    | description                                              | default |
 |---------|---------|----------------------------------------------------------|---------|
-| ...data | ...*    | Any data that you want to pass to the tasks              |         |
+| ...data | any     | Any data that you want to pass to the tasks              |         |
 
 ```js
 const sol = new Hypergiant();
 
-// When sol is dispatched, the `sayHello` function will be called once and then deleted from the Hypergiant's task list.
+// When sol is dispatched, the `sayHello` function will be called once and then deleted from the signal's task list.
 sol.add(sayHello, true);
 
 function sayHello(name1, name2) {
@@ -127,6 +127,47 @@ sol.disaptch('Bob', 'John');
 
 // In this case the `sayHello` function will log:
 // => Hello Bob and John!
+```
+
+
+### **remove**
+
+Deletes a task from the signal
+
+| param | type     | description                                                                                | default |
+|-------|----------|--------------------------------------------------------------------------------------------|---------|
+| fn    | Function | The function to delete                                                                     |         |
+
+```js
+const sol = new Hypergiant();
+
+sol.add(hello);
+
+sol.remove(hello);
+
+function hello() {
+
+  return 'Hello World!';
+
+}
+```
+
+### **removeAll**
+
+Deletes all tasks from the signal.
+
+```js
+const sol = new Hypergiant();
+
+sol.add(hello);
+
+sol.removeAll();
+
+function hello() {
+
+  return 'Hello World!';
+
+}
 ```
 
 ## **License**

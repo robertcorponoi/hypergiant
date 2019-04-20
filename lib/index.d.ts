@@ -1,31 +1,29 @@
 /**
- * Hypergiant is used to create signal-like events that run when the Hypergiant
- * is emitted.
+ * Hypergiant is used to create signals that run a task when emitted.
  *
- * One of the big advtanges that Hypergiant has over native JavaScript events is
- * the ability of using named events instead of relying on typing.
+ * One of the biggest advtantages that signals have over native JavaScript events
+ * is that they don't rely on correct typing.
  *
  * @author Robert Corponoi
  *
- * @version 0.1.0
+ * @version 2.3.0
  */
 export default class Hypergiant {
     /**
-     * The tasks associated with this instance of Hypergiant that run
-     * when the event is emitted.
-     *
-     * @since 0.1.0
-     *
-     * @property {Set}
-     */
+     * The tasks that are set to run when the corresponding signal is dispatched.
+       *
+       * @since 0.1.0
+       *
+       * @property {Set}
+       */
     private tasks;
     /**
-     * Adds a new task for this instance of Hypergiant to run when emitted.
+     * Add a new signal.
      *
      * @since 0.1.0
      *
-     * @param {Function} fn The method that should be called when emitted.
-     * @param {boolean} [once=false] Indicates whether this task should only be called once and then deleted.
+     * @param {Function} fn The method that should be called when the signal is dispatched.
+     * @param {boolean} [once=false] Indicates whether this signal should only be dispatched once and then deleted.
      *
      * @returns {Hypergiant} Returns this for chaining.
      */
@@ -39,4 +37,22 @@ export default class Hypergiant {
      * @param {...*} args Any other data that should be passed to the tasks associated with this Hypergiant instance.
      */
     dispatch(...args: []): void;
+    /**
+     * Removes a task from this signal by name.
+     *
+     * @since 2.3.0
+     *
+     * @param {Function} The task to remove.
+     *
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+    remove(fn: Function): Hypergiant;
+    /**
+     * Removes all tasks from this signal.
+     *
+     * @since 2.3.0
+     *
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+    removeAll(): Hypergiant;
 }

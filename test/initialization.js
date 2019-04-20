@@ -5,7 +5,7 @@ const Hypergiant = require('../index');
 
 describe('Creating a new instance of Hypergiant', () => {
 
-	it('should create a new instance of a Hypergiant event on a variable', () => {
+	it('should create a new signal event on a variable', () => {
 
 		const event = new Hypergiant();
 
@@ -13,7 +13,7 @@ describe('Creating a new instance of Hypergiant', () => {
 
 	});
 
-	it('should create a new instance of a Hypergiant on an object property', () => {
+	it('should create a new signal on an object property', () => {
 
 		const hello = {
 
