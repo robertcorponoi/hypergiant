@@ -1,3 +1,9 @@
+2.3.0 / 2019-04-19
+==================
+
+* Updated packages to remove vulnerabilities.
+* Added @babel/plugin-transform-runtime and @babel/runtime to minimize reuse.
+
 2.2.0 / 2019-03-11
 ==================
 

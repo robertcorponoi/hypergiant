@@ -1,6 +1,6 @@
 {
   "name": "hypergiant",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Hypergiant is a small and simple signal-like event emitter for Node.js and the browser.",
   "main": "index.js",
   "module": "hypergiant.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/robertcorponoi/hypergiant"
+    "url": "git@github.com:robertcorponoi/hypergiant"
   },
   "keywords": [
     "signal",
@@ -34,10 +34,11 @@
     "@babel/core": "^7.3.4",
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-typescript": "^7.3.3",
     "chai": "^4.2.0",
-    "mocha": "^6.0.2",
+    "mocha": "^6.1.4",
     "rollup": "^1.4.1",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.1",
@@ -47,5 +48,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.4.3"
   }
 }
