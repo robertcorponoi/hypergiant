@@ -81,6 +81,14 @@ function () {
    */
 
   /**
+   * Indicates whether this task is currently paused or not.
+   * 
+   * @since 2.4.0
+   * 
+   * @property {boolean}
+   */
+
+  /**
    * @param {Function} fn The method to attach to this task.
    * @param {boolean} once Indicates whether this task will only run once before being deleted or not.
    */
@@ -94,6 +102,8 @@ function () {
     defineProperty(this, "delete", false);
 
     defineProperty(this, "timesCalled", 0);
+
+    defineProperty(this, "paused", false);
 
     this.fn = fn;
     this.once = once;
@@ -110,6 +120,7 @@ function () {
   createClass(Task, [{
     key: "run",
     value: function run() {
+      if (this.paused) return;
       this.fn.apply(this, arguments);
       this.timesCalled++;
       if (this.once) this["delete"] = true;
@@ -122,12 +133,12 @@ function () {
 /**
  * Hypergiant is used to create signals that run a task when emitted.
  *
- * One of the biggest advtantages that signals have over native JavaScript events
- * is that they don't rely on correct typing.
+ * One of the biggest advtantages that signals have over native JavaScript events is that they don't rely 
+ * on correct typing.
  *
  * @author Robert Corponoi
  * 
- * @version 2.3.0
+ * @version 2.4.1
  */
 
 var Hypergiant =
@@ -199,7 +210,7 @@ function () {
      *
      * @since 2.3.0
      *
-     * @param {Function} The task to remove.
+     * @param {Function} task The task to remove.
      *
      * @returns {Hypergiant} Returns this for chaining.
      */
@@ -251,6 +262,99 @@ function () {
     key: "removeAll",
     value: function removeAll() {
       this.tasks.clear();
+      return this;
+    }
+    /**
+     * Pauses a task attached to this signal until it is unpaused.
+     * 
+     * This means that the paused task will not be called and just be silent until the `enable` method is called
+     * on it returning it back to its normal state.
+     * 
+     * @since 2.4.0
+     * 
+     * @param {Function} task The task to pause.
+     * 
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+
+  }, {
+    key: "pause",
+    value: function pause(fn) {
+      var fnToString = fn.toString();
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = this.tasks[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var task = _step3.value;
+          var taskFnToString = task.fn.toString();
+
+          if (!task.paused && fnToString === taskFnToString) {
+            task.paused = true;
+            break;
+          }
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+            _iterator3["return"]();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      return this;
+    }
+    /**
+     * Resumes a task from a paused state.
+     * 
+     * @since 2.4.0
+     * 
+     * @param {Function} task The paused task.
+     * 
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+
+  }, {
+    key: "resume",
+    value: function resume(fn) {
+      var fnToString = fn.toString();
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = this.tasks[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var task = _step4.value;
+          var taskFnToString = task.fn.toString();
+
+          if (task.paused && fnToString === taskFnToString) {
+            task.paused = false;
+            break;
+          }
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+            _iterator4["return"]();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
       return this;
     }
   }]);

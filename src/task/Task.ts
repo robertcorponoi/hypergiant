@@ -3,12 +3,7 @@
 /**
  * A task is a method that is bound to a Hypergiant instance.
  * 
- * When the Hypgergiant instance that this method is bound to is dispatched, the 
- * method will be called.
- * 
- * @author Robert Corponoi <robertcorponoi@gmail.com>
- * 
- * @version 0.1.0
+ * When the Hypgergiant instance that this method is bound to is dispatched, the  method will be called.
  */
 export default class Task {
 
@@ -48,7 +43,16 @@ export default class Task {
 	 * 
 	 * @property {number}
 	 */
-	timesCalled: number = 0;
+  timesCalled: number = 0;
+  
+  /**
+   * Indicates whether this task is currently paused or not.
+   * 
+   * @since 2.4.0
+   * 
+   * @property {boolean}
+   */
+  paused: boolean = false;
 
 	/**
 	 * @param {Function} fn The method to attach to this task.
@@ -70,6 +74,8 @@ export default class Task {
 	 * @param {...*} args Any other data that should be passed to this task.
 	 */
 	run(...args: []) {
+
+    if (this.paused) return;
 
 		this.fn(...args);
 

@@ -1,12 +1,12 @@
 /**
  * Hypergiant is used to create signals that run a task when emitted.
  *
- * One of the biggest advtantages that signals have over native JavaScript events
- * is that they don't rely on correct typing.
+ * One of the biggest advtantages that signals have over native JavaScript events is that they don't rely
+ * on correct typing.
  *
  * @author Robert Corponoi
  *
- * @version 2.3.0
+ * @version 2.4.1
  */
 export default class Hypergiant {
     /**
@@ -42,7 +42,7 @@ export default class Hypergiant {
      *
      * @since 2.3.0
      *
-     * @param {Function} The task to remove.
+     * @param {Function} task The task to remove.
      *
      * @returns {Hypergiant} Returns this for chaining.
      */
@@ -55,4 +55,27 @@ export default class Hypergiant {
      * @returns {Hypergiant} Returns this for chaining.
      */
     removeAll(): Hypergiant;
+    /**
+     * Pauses a task attached to this signal until it is unpaused.
+     *
+     * This means that the paused task will not be called and just be silent until the `enable` method is called
+     * on it returning it back to its normal state.
+     *
+     * @since 2.4.0
+     *
+     * @param {Function} task The task to pause.
+     *
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+    pause(fn: Function): Hypergiant;
+    /**
+     * Resumes a task from a paused state.
+     *
+     * @since 2.4.0
+     *
+     * @param {Function} task The paused task.
+     *
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+    resume(fn: Function): Hypergiant;
 }
