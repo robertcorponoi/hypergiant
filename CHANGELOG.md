@@ -1,3 +1,9 @@
+2.4.0 / 2019-06-09
+==================
+* Added Task Pausing
+* Tasks can now be paused with the pause method.
+* They can then be resumed from a pause state with the resume method.
+
 2.3.1 / 2019-06-09
 ==================
 * Updated all packages to latest versions.
