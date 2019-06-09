@@ -112,7 +112,7 @@ function () {
     value: function run() {
       this.fn.apply(this, arguments);
       this.timesCalled++;
-      if (this.once) this.delete = true;
+      if (this.once) this["delete"] = true;
     }
   }]);
 
@@ -177,15 +177,15 @@ function () {
         for (var _iterator = this.tasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var task = _step.value;
           task.run.apply(task, arguments);
-          if (task.delete) this.tasks.delete(task);
+          if (task["delete"]) this.tasks["delete"](task);
         }
       } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
           }
         } finally {
           if (_didIteratorError) {
@@ -218,7 +218,7 @@ function () {
           var taskFnToString = task.fn.toString();
 
           if (fnToString === taskFnToString) {
-            this.tasks.delete(task);
+            this.tasks["delete"](task);
             break;
           }
         }
@@ -227,8 +227,8 @@ function () {
         _iteratorError2 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
           }
         } finally {
           if (_didIteratorError2) {
