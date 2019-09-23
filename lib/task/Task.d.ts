@@ -7,16 +7,12 @@ export default class Task {
     /**
      * The method to be called when processing this task.
      *
-     * @since 0.1.0
-     *
      * @property {Function}
      */
     fn: Function;
     /**
      * Indicates whether this task will only run once before being deleted
      * or not.
-     *
-     * @since 0.1.0
      *
      * @property {boolean}
      */
@@ -25,23 +21,17 @@ export default class Task {
      * If true this indicates to Hypergiant that it needs to be deleted on the
      * next pass.
      *
-     * @since 0.1.0
-     *
      * @property {boolean}
      */
     delete: boolean;
     /**
      * The number of times that this task has been called.
      *
-     * @since 0.1.0
-     *
      * @property {number}
      */
     timesCalled: number;
     /**
      * Indicates whether this task is currently paused or not.
-     *
-     * @since 2.4.0
      *
      * @property {boolean}
      */
@@ -53,8 +43,6 @@ export default class Task {
     constructor(fn: Function, once: boolean);
     /**
      * Runs the method associated with this task.
-     *
-     * @since 0.1.0
      *
      * @param {...*} args Any other data that should be passed to this task.
      */

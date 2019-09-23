@@ -7,17 +7,11 @@ import Task from './task/Task';
  *
  * One of the biggest advtantages that signals have over native JavaScript events is that they don't rely 
  * on correct typing.
- *
- * @author Robert Corponoi
- * 
- * @version 2.4.1
  */
 export default class Hypergiant {
 
   /**
    * The tasks that are set to run when the corresponding signal is dispatched.
-	 * 
-	 * @since 0.1.0
 	 * 
 	 * @property {Set}
 	 */
@@ -25,8 +19,6 @@ export default class Hypergiant {
 
 	/**
 	 * Add a new signal.
-	 * 
-	 * @since 0.1.0
 	 * 
 	 * @param {Function} fn The method that should be called when the signal is dispatched.
 	 * @param {boolean} [once=false] Indicates whether this signal should only be dispatched once and then deleted.
@@ -45,8 +37,6 @@ export default class Hypergiant {
 	 * Dispatch this Hypergiant event and run all of the tasks associated
 	 * with it along with any data passed to it.
 	 * 
-	 * @since 0.1.0
-	 * 
 	 * @param {...*} args Any other data that should be passed to the tasks associated with this Hypergiant instance.
 	 */
   dispatch(...args: []) {
@@ -63,8 +53,6 @@ export default class Hypergiant {
 
   /**
    * Removes a task from this signal by name.
-   *
-   * @since 2.3.0
    *
    * @param {Function} task The task to remove.
    *
@@ -95,8 +83,6 @@ export default class Hypergiant {
   /**
    * Removes all tasks from this signal.
    *
-   * @since 2.3.0
-   *
    * @returns {Hypergiant} Returns this for chaining.
    */
   removeAll(): Hypergiant {
@@ -113,8 +99,6 @@ export default class Hypergiant {
    * 
    * This means that the paused task will not be called and just be silent until the `enable` method is called
    * on it returning it back to its normal state.
-   * 
-   * @since 2.4.0
    * 
    * @param {Function} task The task to pause.
    * 
@@ -145,8 +129,6 @@ export default class Hypergiant {
   /**
    * Resumes a task from a paused state.
    * 
-   * @since 2.4.0
-   * 
    * @param {Function} task The paused task.
    * 
    * @returns {Hypergiant} Returns this for chaining.
@@ -162,6 +144,35 @@ export default class Hypergiant {
       if (task.paused && fnToString === taskFnToString) {
 
         task.paused = false;
+
+        break;
+
+      }
+
+    }
+
+    return this;
+
+  }
+
+  /**
+   * Makes a task a noop function.
+   * 
+   * @param {Function} task The task to make noop.
+   * 
+   * @returns {Hypergiant} Returns this for chaining.
+   */
+  noop(fn: Function): Hypergiant {
+
+    const fnToString: string = fn.toString();
+
+    for (const task of this.tasks) {
+
+      const taskFnToString: string = task.fn.toString();
+
+      if (fnToString === taskFnToString) {
+
+        task.fn = () => { };
 
         break;
 

@@ -49,16 +49,12 @@ function () {
   /**
    * The method to be called when processing this task.
    * 
-   * @since 0.1.0
-   * 
    * @property {Function}
    */
 
   /**
    * Indicates whether this task will only run once before being deleted
    * or not.
-   * 
-   * @since 0.1.0
    * 
    * @property {boolean}
    */
@@ -67,23 +63,17 @@ function () {
    * If true this indicates to Hypergiant that it needs to be deleted on the
    * next pass.
    * 
-   * @since 0.1.0
-   * 
    * @property {boolean}
    */
 
   /**
    * The number of times that this task has been called.
    * 
-   * @since 0.1.0
-   * 
    * @property {number}
    */
 
   /**
    * Indicates whether this task is currently paused or not.
-   * 
-   * @since 2.4.0
    * 
    * @property {boolean}
    */
@@ -111,8 +101,6 @@ function () {
   /**
    * Runs the method associated with this task.
    * 
-   * @since 0.1.0
-   * 
    * @param {...*} args Any other data that should be passed to this task.
    */
 
@@ -135,10 +123,6 @@ function () {
  *
  * One of the biggest advtantages that signals have over native JavaScript events is that they don't rely 
  * on correct typing.
- *
- * @author Robert Corponoi
- * 
- * @version 2.4.1
  */
 
 var Hypergiant =
@@ -156,8 +140,6 @@ function () {
     /**
      * Add a new signal.
      * 
-     * @since 0.1.0
-     * 
      * @param {Function} fn The method that should be called when the signal is dispatched.
      * @param {boolean} [once=false] Indicates whether this signal should only be dispatched once and then deleted.
      * 
@@ -171,8 +153,6 @@ function () {
     /**
      * Dispatch this Hypergiant event and run all of the tasks associated
      * with it along with any data passed to it.
-     * 
-     * @since 0.1.0
      * 
      * @param {...*} args Any other data that should be passed to the tasks associated with this Hypergiant instance.
      */
@@ -207,8 +187,6 @@ function () {
     }
     /**
      * Removes a task from this signal by name.
-     *
-     * @since 2.3.0
      *
      * @param {Function} task The task to remove.
      *
@@ -253,8 +231,6 @@ function () {
     /**
      * Removes all tasks from this signal.
      *
-     * @since 2.3.0
-     *
      * @returns {Hypergiant} Returns this for chaining.
      */
 
@@ -269,8 +245,6 @@ function () {
      * 
      * This means that the paused task will not be called and just be silent until the `enable` method is called
      * on it returning it back to its normal state.
-     * 
-     * @since 2.4.0
      * 
      * @param {Function} task The task to pause.
      * 
@@ -315,8 +289,6 @@ function () {
     /**
      * Resumes a task from a paused state.
      * 
-     * @since 2.4.0
-     * 
      * @param {Function} task The paused task.
      * 
      * @returns {Hypergiant} Returns this for chaining.
@@ -351,6 +323,50 @@ function () {
         } finally {
           if (_didIteratorError4) {
             throw _iteratorError4;
+          }
+        }
+      }
+
+      return this;
+    }
+    /**
+     * Makes a task a noop function.
+     * 
+     * @param {Function} task The task to make noop.
+     * 
+     * @returns {Hypergiant} Returns this for chaining.
+     */
+
+  }, {
+    key: "noop",
+    value: function noop(fn) {
+      var fnToString = fn.toString();
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = this.tasks[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var task = _step5.value;
+          var taskFnToString = task.fn.toString();
+
+          if (fnToString === taskFnToString) {
+            task.fn = function () {};
+
+            break;
+          }
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+            _iterator5["return"]();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
           }
         }
       }
