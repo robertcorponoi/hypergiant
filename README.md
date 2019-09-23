@@ -129,7 +129,6 @@ sol.disaptch('Bob', 'John');
 // => Hello Bob and John!
 ```
 
-
 ### **remove**
 
 Deletes a task from the signal
@@ -168,6 +167,36 @@ function hello() {
   return 'Hello World!';
 
 }
+```
+
+### **noop**
+
+Makes a task a noop function
+
+| param | type     | description                                                                                | default |
+|-------|----------|--------------------------------------------------------------------------------------------|---------|
+| fn    | Function | The function to make a noop function                                                       |         |
+
+```js
+const sol = new Hypergiant();
+
+sol.add(hello);
+
+sol.noop(hello);
+
+function hello() {
+
+  return 'Hello World!';
+
+}
+```
+
+## **Tests**
+
+To run the tests available use:
+
+```bash
+$ npm run test
 ```
 
 ## **License**
