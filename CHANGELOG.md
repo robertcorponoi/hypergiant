@@ -1,3 +1,7 @@
+2.5.1 / 2019-10-23
+==================
+* [FEATURE] Updated all dependencies to their latest versions.
+
 2.5.0 / 2019-09-22
 ==================
 * [FEATURE] Added functionality to make a task a noop function.
