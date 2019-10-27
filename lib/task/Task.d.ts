@@ -46,5 +46,5 @@ export default class Task {
      *
      * @param {...*} args Any other data that should be passed to this task.
      */
-    run(...args: []): void;
+    run(...args: any): void;
 }

@@ -61,7 +61,7 @@ export default class Task {
 	 * 
 	 * @param {...*} args Any other data that should be passed to this task.
 	 */
-	run(...args: []) {
+	run(...args: any) {
 
     if (this.paused) return;
 

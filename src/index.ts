@@ -39,7 +39,7 @@ export default class Hypergiant {
 	 * 
 	 * @param {...*} args Any other data that should be passed to the tasks associated with this Hypergiant instance.
 	 */
-  dispatch(...args: []) {
+  dispatch(...args: any) {
 
     for (const task of this.tasks) {
 

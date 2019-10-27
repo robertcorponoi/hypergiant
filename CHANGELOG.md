@@ -1,3 +1,7 @@
+2.5.2 / 2019-10-26
+==================
+* [FEATURE] Changed the definitions for `dispatch` as it was throwing an error when used in other typescript projects.
+
 2.5.1 / 2019-10-23
 ==================
 * [FEATURE] Updated all dependencies to their latest versions.
