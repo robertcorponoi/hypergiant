@@ -10,6 +10,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/hypergiant.svg?style=flat)](https://www.npmjs.com/package/hypergiant)
 [![Known Vulnerabilities](https://snyk.io/test/github/robertcorponoi/hypergiant/badge.svg)](https://snyk.io/test/github/robertcorponoi/hypergiant)
+![npm](https://img.shields.io/npm/dt/hypergiant)
 [![NPM downloads](https://img.shields.io/npm/dm/hypergiant.svg?style=flat)](https://www.npmjs.com/package/hypergiant)
 <a href="https://badge.fury.io/js/hypergiant"><img src="https://img.shields.io/github/issues/robertcorponoi/hypergiant.svg" alt="issues" height="18"></a>
 <a href="https://badge.fury.io/js/hypergiant"><img src="https://img.shields.io/github/license/robertcorponoi/hypergiant.svg" alt="license" height="18"></a>
@@ -28,7 +29,7 @@
   - [add](#add)
   - [dispatch](#dispatch)
   - [remove](#remove)
-  - [removeAll](#remove-all)
+  - [removeAll](#removeAll)
   - [noop](#noop)
 
 ## **Installation**

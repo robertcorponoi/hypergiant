@@ -1,3 +1,8 @@
+3.0.1 / 2019-11-18
+==================
+* [MISC] Updated bad link in README.
+* [MISC] Added yet more badges to README.
+
 3.0.0 / 2019-11-18
 ==================
 * [MISC] Made methods/properties private as needed and added getters/setters.
