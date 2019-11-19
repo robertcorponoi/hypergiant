@@ -15,27 +15,31 @@ export default class Task {
 	fn: Function;
 
 	/**
-	 * Indicates whether this task will only run once before being deleted
-	 * or not.
+	 * Indicates whether this task will only run once before being deleted or not.
 	 * 
+   * @private
+   * 
 	 * @property {boolean}
 	 */
-	once: boolean;
+	private _once: boolean;
 
 	/**
-	 * If true this indicates to Hypergiant that it needs to be deleted on the
-	 * next pass.
+	 * If true this indicates to Hypergiant that it needs to be deleted on the next pass.
+   * 
+   * @private
 	 * 
 	 * @property {boolean}
 	 */
-	delete: boolean = false;
+	private _delete: boolean = false;
 
 	/**
 	 * The number of times that this task has been called.
+   * 
+   * @private
 	 * 
 	 * @property {number}
 	 */
-  timesCalled: number = 0;
+  private _timesCalled: number = 0;
   
   /**
    * Indicates whether this task is currently paused or not.
@@ -52,9 +56,30 @@ export default class Task {
 
 		this.fn = fn;
 
-		this.once = once;
+		this._once = once;
 
-	}
+  }
+
+  /**
+   * Returns whether the task should run only once or not.
+   * 
+   * @returns {boolean}
+   */
+  get once(): boolean { return this._once; }
+  
+  /**
+   * Returns whether the task should be deleted or not.
+   * 
+   * @returns {boolean}
+   */
+  get delete(): boolean { return this._delete }
+
+  /**
+   * Returns the number of times that this task has been called.
+   * 
+   * @returns {number}
+   */
+  get timesCalled(): number { return this._timesCalled; }
 
 	/**
 	 * Runs the method associated with this task.
@@ -67,9 +92,9 @@ export default class Task {
 
 		this.fn(...args);
 
-		this.timesCalled++;
+		this._timesCalled++;
 
-		if (this.once) this.delete = true;
+		if (this._once) this._delete = true;
 
 	}
 

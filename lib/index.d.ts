@@ -1,3 +1,4 @@
+import Task from './task/Task';
 /**
  * Hypergiant is used to create signals that run a task when emitted.
  *
@@ -7,10 +8,24 @@
 export default class Hypergiant {
     /**
      * The tasks that are set to run when the corresponding signal is dispatched.
+     *
+     * @private
        *
        * @property {Set}
        */
-    private tasks;
+    private _tasks;
+    /**
+     * Returns the tasks created for this signal.
+     *
+     * @returns {Set<Task>}
+     */
+    get tasks(): Set<Task>;
+    /**
+     * Returns the number of tasks currently assigned to this signal.
+     *
+     * @returns {number}
+     */
+    get numTasks(): number;
     /**
      * Add a new signal.
      *

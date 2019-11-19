@@ -11,25 +11,29 @@ export default class Task {
      */
     fn: Function;
     /**
-     * Indicates whether this task will only run once before being deleted
-     * or not.
+     * Indicates whether this task will only run once before being deleted or not.
      *
+   * @private
+   *
      * @property {boolean}
      */
-    once: boolean;
+    private _once;
     /**
-     * If true this indicates to Hypergiant that it needs to be deleted on the
-     * next pass.
+     * If true this indicates to Hypergiant that it needs to be deleted on the next pass.
+   *
+   * @private
      *
      * @property {boolean}
      */
-    delete: boolean;
+    private _delete;
     /**
      * The number of times that this task has been called.
+   *
+   * @private
      *
      * @property {number}
      */
-    timesCalled: number;
+    private _timesCalled;
     /**
      * Indicates whether this task is currently paused or not.
      *
@@ -41,6 +45,24 @@ export default class Task {
      * @param {boolean} once Indicates whether this task will only run once before being deleted or not.
      */
     constructor(fn: Function, once: boolean);
+    /**
+     * Returns whether the task should run only once or not.
+     *
+     * @returns {boolean}
+     */
+    get once(): boolean;
+    /**
+     * Returns whether the task should be deleted or not.
+     *
+     * @returns {boolean}
+     */
+    get delete(): boolean;
+    /**
+     * Returns the number of times that this task has been called.
+     *
+     * @returns {number}
+     */
+    get timesCalled(): number;
     /**
      * Runs the method associated with this task.
      *

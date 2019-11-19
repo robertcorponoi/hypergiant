@@ -7,11 +7,29 @@
 <p align="center">Hypergiant is a small and simple signal-like event emitter for Node.js and the browser.<p>
 
 <div align="center">
-  <a href="https://badge.fury.io/js/hypergiant"><img src="https://badge.fury.io/js/hypergiant.svg" alt="npm version" height="18"></a>
-  <a href="https://badge.fury.io/js/hypergiant"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="build" height="18"></a>
-  <a href="https://badge.fury.io/js/hypergiant"><img src="https://img.shields.io/github/issues/robertcorponoi/hypergiant.svg" alt="issues" height="18"></a>
-  <a href="https://badge.fury.io/js/hypergiant"><img src="https://img.shields.io/github/license/robertcorponoi/hypergiant.svg" alt="license" height="18"></a>
+
+[![NPM version](https://img.shields.io/npm/v/hypergiant.svg?style=flat)](https://www.npmjs.com/package/hypergiant)
+[![Known Vulnerabilities](https://snyk.io/test/github/robertcorponoi/hypergiant/badge.svg)](https://snyk.io/test/github/robertcorponoi/hypergiant)
+[![NPM downloads](https://img.shields.io/npm/dm/hypergiant.svg?style=flat)](https://www.npmjs.com/package/hypergiant)
+<a href="https://badge.fury.io/js/hypergiant"><img src="https://img.shields.io/github/issues/robertcorponoi/hypergiant.svg" alt="issues" height="18"></a>
+<a href="https://badge.fury.io/js/hypergiant"><img src="https://img.shields.io/github/license/robertcorponoi/hypergiant.svg" alt="license" height="18"></a>
+[![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/robertcorponoi)
+
 </div>
+
+**Table of Contents**
+
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+- [Properties](#properties)
+  - [tasks](#tasks)
+  - [numTasks](#numTasks)
+- [API](#api)
+  - [add](#add)
+  - [dispatch](#dispatch)
+  - [remove](#remove)
+  - [removeAll](#remove-all)
+  - [noop](#noop)
 
 ## **Installation**
 
@@ -75,6 +93,39 @@ appStarted.dispatch('Bob');
 
 Any parameters passed with `dispatch` will also be passed to the tesk functions attached to it.
 
+## **Properties**
+
+### **tasks**
+
+Returns all of the tasks that have been created for this signal:
+
+**exmple:**
+
+```js
+const sol = new Hypergiant();
+
+// Tasks...
+sol.add(blah);
+// More tasks...
+
+const tasks = sol.tasks;
+```
+
+### **numTasks**
+
+Returns the number of tasks currently assigned to this signal.
+
+**example:**
+
+```js
+const sol = new Hypergiant();
+
+sol.add(blah);
+sol.add(blah);
+
+const numTasks = sol.numTasks; // 2
+```
+
 ## **API**
 
 ### **add**
@@ -85,6 +136,8 @@ Add takes in a function and an optional parameter named `once` that can be set t
 |-------|----------|--------------------------------------------------------------------------------------------|---------|
 | fn    | Function | The function to be called when the signal is dispatched.                                   |         |
 | once  | false    | Indicates whether this task should happen only once and then be automatically deleted.     | false   |
+
+**example:**
 
 ```js
 const sol = new Hypergiant();
@@ -108,6 +161,8 @@ This method can take any number of parameters which will act as data sent to the
 | param   | type    | description                                              | default |
 |---------|---------|----------------------------------------------------------|---------|
 | ...data | any     | Any data that you want to pass to the tasks              |         |
+
+**example:**
 
 ```js
 const sol = new Hypergiant();
@@ -137,6 +192,8 @@ Deletes a task from the signal
 |-------|----------|--------------------------------------------------------------------------------------------|---------|
 | fn    | Function | The function to delete                                                                     |         |
 
+**example:**
+
 ```js
 const sol = new Hypergiant();
 
@@ -154,6 +211,8 @@ function hello() {
 ### **removeAll**
 
 Deletes all tasks from the signal.
+
+**example:**
 
 ```js
 const sol = new Hypergiant();
@@ -176,6 +235,8 @@ Makes a task a noop function
 | param | type     | description                                                                                | default |
 |-------|----------|--------------------------------------------------------------------------------------------|---------|
 | fn    | Function | The function to make a noop function                                                       |         |
+
+**example:**
 
 ```js
 const sol = new Hypergiant();

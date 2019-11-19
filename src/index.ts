@@ -12,10 +12,26 @@ export default class Hypergiant {
 
   /**
    * The tasks that are set to run when the corresponding signal is dispatched.
+   * 
+   * @private
 	 * 
 	 * @property {Set}
 	 */
-  private tasks: Set<Task> = new Set();
+  private _tasks: Set<Task> = new Set();
+
+  /**
+   * Returns the tasks created for this signal.
+   * 
+   * @returns {Set<Task>}
+   */
+  get tasks(): Set<Task> { return this._tasks; }
+
+  /**
+   * Returns the number of tasks currently assigned to this signal.
+   * 
+   * @returns {number}
+   */
+  get numTasks(): number { return this._tasks.size; }
 
 	/**
 	 * Add a new signal.
@@ -27,7 +43,7 @@ export default class Hypergiant {
 	 */
   add(fn: Function, once: boolean = false): Hypergiant {
 
-    this.tasks.add(new Task(fn, once));
+    this._tasks.add(new Task(fn, once));
 
     return this;
 
@@ -41,11 +57,11 @@ export default class Hypergiant {
 	 */
   dispatch(...args: any) {
 
-    for (const task of this.tasks) {
+    for (const task of this._tasks) {
 
       task.run(...args);
 
-      if (task.delete) this.tasks.delete(task);
+      if (task.delete) this._tasks.delete(task);
 
     }
 
@@ -62,13 +78,13 @@ export default class Hypergiant {
 
     const fnToString: string = fn.toString();
 
-    for (const task of this.tasks) {
+    for (const task of this._tasks) {
 
       const taskFnToString: string = task.fn.toString();
 
       if (fnToString === taskFnToString) {
 
-        this.tasks.delete(task);
+        this._tasks.delete(task);
 
         break;
 
@@ -87,7 +103,7 @@ export default class Hypergiant {
    */
   removeAll(): Hypergiant {
 
-    this.tasks.clear();
+    this._tasks.clear();
 
     return this;
 
@@ -108,7 +124,7 @@ export default class Hypergiant {
 
     const fnToString: string = fn.toString();
 
-    for (const task of this.tasks) {
+    for (const task of this._tasks) {
 
       const taskFnToString: string = task.fn.toString();
 
@@ -137,7 +153,7 @@ export default class Hypergiant {
 
     const fnToString: string = fn.toString();
 
-    for (const task of this.tasks) {
+    for (const task of this._tasks) {
 
       const taskFnToString: string = task.fn.toString();
 
@@ -166,7 +182,7 @@ export default class Hypergiant {
 
     const fnToString: string = fn.toString();
 
-    for (const task of this.tasks) {
+    for (const task of this._tasks) {
 
       const taskFnToString: string = task.fn.toString();
 

@@ -1,3 +1,10 @@
+3.0.0 / 2019-11-18
+==================
+* [MISC] Made methods/properties private as needed and added getters/setters.
+* [FEATURE] Added `numTasks` property to Hypergiant.
+* [MISC] Updated README to account for API changes.
+* [MISC] Added more badges to README.
+
 2.5.3 / 2019-11-18
 ==================
 * [MISC] Updated all dependencies to their latest versions.
