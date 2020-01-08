@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" height="250" src="./hypergiant.png">
+  <img width="250" height="250" src="https://github.com/robertcorponoi/graphics/blob/master/hypergiant/hypergiant-logo.png?raw=true">
 </p>
 
 <h1 align="center">Hypergiant</h1>

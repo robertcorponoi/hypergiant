@@ -1,3 +1,9 @@
+3.0.2 / 2020-01-08
+==================
+* [MISC] Updated license year to reflect new year.
+* [MISC] Moved logo to grahpics repo and updated the src in the README.
+* [MISC] Updated dev dependencies to their latest versions.
+
 3.0.1 / 2019-11-18
 ==================
 * [MISC] Updated bad link in README.
