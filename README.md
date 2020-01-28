@@ -4,7 +4,7 @@
 
 <h1 align="center">Hypergiant</h1>
 
-<p align="center">Hypergiant is a small and simple signal-like event emitter for Node.js and the browser.<p>
+<p align="center">Hypergiant is a small and simple signal-like event system for Node.js and the browser.<p>
 
 <div align="center">
 
@@ -75,9 +75,7 @@ whenever the event is dispatched, use the `add` method on the created signal:
 appStarted.add(hello);
 
 function hello(name) {
-
   console.log(`Hello ${name}!`);
-
 }
 ```
 
@@ -147,9 +145,7 @@ const sol = new Hypergiant();
 sol.add(sayHello, true);
 
 function sayHello(name1, name2) {
-
   console.log(`Hello ${name1} and ${name2}!`);
-
 }
 ```
 
@@ -172,9 +168,7 @@ const sol = new Hypergiant();
 sol.add(sayHello, true);
 
 function sayHello(name1, name2) {
-
   console.log(`Hello ${name1} and ${name2}!`);
-
 }
 
 // At some other point in your application...
@@ -199,13 +193,10 @@ Deletes a task from the signal
 const sol = new Hypergiant();
 
 sol.add(hello);
-
 sol.remove(hello);
 
 function hello() {
-
   return 'Hello World!';
-
 }
 ```
 
@@ -219,13 +210,10 @@ Deletes all tasks from the signal.
 const sol = new Hypergiant();
 
 sol.add(hello);
-
 sol.removeAll();
 
 function hello() {
-
   return 'Hello World!';
-
 }
 ```
 
@@ -243,13 +231,10 @@ Makes a task a noop function
 const sol = new Hypergiant();
 
 sol.add(hello);
-
 sol.noop(hello);
 
 function hello() {
-
   return 'Hello World!';
-
 }
 ```
 

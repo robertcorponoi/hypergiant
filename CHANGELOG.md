@@ -1,3 +1,8 @@
+3.0.3 / 2020-01-27
+==================
+* [DOCS] Cleaned up README.
+* [MISC] Updated dev dependencies to their latest versions.
+
 3.0.2 / 2020-01-08
 ==================
 * [MISC] Updated license year to reflect new year.
