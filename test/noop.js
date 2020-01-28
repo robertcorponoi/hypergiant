@@ -7,19 +7,15 @@ const Hypergiant = require('../index');
 let clock;
 
 describe('Making a task a noop function', () => {
-
 	beforeEach(() => clock = sinon.useFakeTimers());
 
 	afterEach(() => clock.restore());
 
 	it('should make a task a noop function', (done) => {
-
 		const event = new Hypergiant();
 
 		function hello() {
-
 			return 'Hello World!';
-
 		}
 
 		const spy = sinon.spy(hello);
@@ -35,7 +31,5 @@ describe('Making a task a noop function', () => {
 		chai.expect(spy.calledOnce).to.be.false;
 
 		done();
-
   });
-
 });

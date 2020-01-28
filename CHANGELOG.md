@@ -1,3 +1,8 @@
+3.0.4 / 2020-01-27
+==================
+* [MISC] Created new build files.
+* [MISC] Cleaned up tests.
+
 3.0.3 / 2020-01-27
 ==================
 * [DOCS] Cleaned up README.

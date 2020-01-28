@@ -7,19 +7,15 @@ const Hypergiant = require('../index');
 let clock;
 
 describe('Pausing a singals tasks', () => {
-
 	beforeEach(() => clock = sinon.useFakeTimers());
 
 	afterEach(() => clock.restore());
 
 	it('should pause a task and not run it even when dispatched', (done) => {
-
 		const event = new Hypergiant();
 
 		function hello() {
-
 			return 'Hello World!';
-
 		}
 
 		const spy = sinon.spy(hello);
@@ -35,17 +31,13 @@ describe('Pausing a singals tasks', () => {
 		chai.expect(spy.calledOnce).to.be.false;
 
 		done();
-
   });
   
   it('should resume a task after being paused and run it when dispatched', (done) => {
-
 		const event = new Hypergiant();
 
 		function hello() {
-
 			return 'Hello World!';
-
 		}
 
 		const spy = sinon.spy(hello);
@@ -63,7 +55,5 @@ describe('Pausing a singals tasks', () => {
 		chai.expect(spy.calledOnce).to.be.true;
 
 		done();
-
 	});
-
 });
