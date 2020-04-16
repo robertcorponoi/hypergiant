@@ -1,3 +1,6 @@
+## 3.0.6 / 2020-04-16
+- [MISC] Updated out-of-date dependencies to their latest versions which also fixed all possible fixed security vulnerabilities.
+
 ## 3.0.5 / 2020-02-23
 - [MISC] Updated out-of-date dependencies to their latest versions.
 - [MISC] Changed CHANGELOG format.
