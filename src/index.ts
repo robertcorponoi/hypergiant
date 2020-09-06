@@ -1,37 +1,36 @@
 'use strict'
 
-import Task from './task/Task';
+import Task from './Task';
 
 /**
  * Hypergiant is used to create signals that run a task when emitted.
  *
- * One of the biggest advtantages that signals have over native JavaScript events is that they don't rely 
- * on correct typing.
+ * One of the biggest advtantages that signals have over native JavaScript 
+ * events is that they don't rely on correct typing.
  */
 export default class Hypergiant {
-
   /**
    * The tasks that are set to run when the corresponding signal is dispatched.
    * 
    * @private
 	 * 
-	 * @property {Set}
+	 * @property {Array}
 	 */
-  private _tasks: Set<Task> = new Set();
+  private _tasks: Array<Task> = new Array();
 
   /**
    * Returns the tasks created for this signal.
    * 
-   * @returns {Set<Task>}
+   * @returns {Array<Task>}
    */
-  get tasks(): Set<Task> { return this._tasks; }
+  get tasks(): Array<Task> { return this._tasks; }
 
   /**
    * Returns the number of tasks currently assigned to this signal.
    * 
    * @returns {number}
    */
-  get numTasks(): number { return this._tasks.size; }
+  get numTasks(): number { return this._tasks.length; }
 
 	/**
 	 * Add a new signal.
@@ -42,11 +41,8 @@ export default class Hypergiant {
 	 * @returns {Hypergiant} Returns this for chaining.
 	 */
   add(fn: Function, once: boolean = false): Hypergiant {
-
-    this._tasks.add(new Task(fn, once));
-
+    this._tasks.push(new Task(fn, once));
     return this;
-
   }
 
 	/**
@@ -56,15 +52,16 @@ export default class Hypergiant {
 	 * @param {...*} args Any other data that should be passed to the tasks associated with this Hypergiant instance.
 	 */
   dispatch(...args: any) {
+    for (let i = 0; i < this.tasks.length; ++i) {
+      const task = this.tasks[i];
 
-    for (const task of this._tasks) {
-
+      // For each task we run it with th eprovided arguments.
       task.run(...args);
 
-      if (task.delete) this._tasks.delete(task);
-
+      // If the task is set to be deleted, then we have to get the index of the current
+      // task and then splice it.
+      if (task.delete) this.tasks.splice(i, 1);
     }
-
   }
 
   /**
@@ -75,25 +72,8 @@ export default class Hypergiant {
    * @returns {Hypergiant} Returns this for chaining.
    */
   remove(fn: Function): Hypergiant {
-
-    const fnToString: string = fn.toString();
-
-    for (const task of this._tasks) {
-
-      const taskFnToString: string = task.fn.toString();
-
-      if (fnToString === taskFnToString) {
-
-        this._tasks.delete(task);
-
-        break;
-
-      }
-
-    }
-
+    this._tasks = this.tasks.filter(task => task.fn.toString() != fn.toString());
     return this;
-
   }
 
   /**
@@ -102,12 +82,8 @@ export default class Hypergiant {
    * @returns {Hypergiant} Returns this for chaining.
    */
   removeAll(): Hypergiant {
-
-    this._tasks.clear();
-
+    this._tasks = [];
     return this;
-
-
   }
 
   /**
@@ -121,25 +97,10 @@ export default class Hypergiant {
    * @returns {Hypergiant} Returns this for chaining.
    */
   pause(fn: Function): Hypergiant {
-
-    const fnToString: string = fn.toString();
-
-    for (const task of this._tasks) {
-
-      const taskFnToString: string = task.fn.toString();
-
-      if (!task.paused && fnToString === taskFnToString) {
-
-        task.paused = true;
-
-        break;
-
-      }
-
-    }
+    const taskToPause = this.tasks.find(task => !task.paused && fn.toString() === task.fn.toString());
+    if (taskToPause) taskToPause.paused = true;
 
     return this;
-
   }
 
   /**
@@ -150,25 +111,10 @@ export default class Hypergiant {
    * @returns {Hypergiant} Returns this for chaining.
    */
   resume(fn: Function): Hypergiant {
-
-    const fnToString: string = fn.toString();
-
-    for (const task of this._tasks) {
-
-      const taskFnToString: string = task.fn.toString();
-
-      if (task.paused && fnToString === taskFnToString) {
-
-        task.paused = false;
-
-        break;
-
-      }
-
-    }
+    const taskToResume = this.tasks.find(task => task.paused && fn.toString() === task.fn.toString());
+    if (taskToResume) taskToResume.paused = false;
 
     return this;
-
   }
 
   /**
@@ -179,25 +125,9 @@ export default class Hypergiant {
    * @returns {Hypergiant} Returns this for chaining.
    */
   noop(fn: Function): Hypergiant {
-
-    const fnToString: string = fn.toString();
-
-    for (const task of this._tasks) {
-
-      const taskFnToString: string = task.fn.toString();
-
-      if (fnToString === taskFnToString) {
-
-        task.fn = () => { };
-
-        break;
-
-      }
-
-    }
+    const taskToNoop = this.tasks.find(task => fn.toString() === task.fn.toString());
+    if (taskToNoop) taskToNoop.fn = () => {};
 
     return this;
-
   }
-
 }

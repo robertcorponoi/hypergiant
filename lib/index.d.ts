@@ -1,4 +1,4 @@
-import Task from './task/Task';
+import Task from './Task';
 /**
  * Hypergiant is used to create signals that run a task when emitted.
  *

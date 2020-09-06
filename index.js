@@ -43,9 +43,7 @@ function _defineProperty(obj, key, value) {
 
 var defineProperty = _defineProperty;
 
-var Task =
-/*#__PURE__*/
-function () {
+var Task = /*#__PURE__*/function () {
   /**
    * The method to be called when processing this task.
    * 
@@ -55,23 +53,23 @@ function () {
   /**
    * Indicates whether this task will only run once before being deleted or not.
    * 
-    * @private
-    * 
+   * @private
+   * 
    * @property {boolean}
    */
 
   /**
    * If true this indicates to Hypergiant that it needs to be deleted on the next pass.
-    * 
-    * @private
+      * 
+      * @private
    * 
    * @property {boolean}
    */
 
   /**
    * The number of times that this task has been called.
-    * 
-    * @private
+      * 
+      * @private
    * 
    * @property {number}
    */
@@ -158,17 +156,15 @@ function () {
 /**
  * Hypergiant is used to create signals that run a task when emitted.
  *
- * One of the biggest advtantages that signals have over native JavaScript events is that they don't rely 
- * on correct typing.
+ * One of the biggest advtantages that signals have over native JavaScript 
+ * events is that they don't rely on correct typing.
  */
 
-var Hypergiant =
-/*#__PURE__*/
-function () {
+var Hypergiant = /*#__PURE__*/function () {
   function Hypergiant() {
     classCallCheck(this, Hypergiant);
 
-    defineProperty(this, "_tasks", new Set());
+    defineProperty(this, "_tasks", new Array());
   }
 
   createClass(Hypergiant, [{
@@ -185,7 +181,7 @@ function () {
     value: function add(fn) {
       var once = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-      this._tasks.add(new Task(fn, once));
+      this._tasks.push(new Task(fn, once));
 
       return this;
     }
@@ -199,29 +195,13 @@ function () {
   }, {
     key: "dispatch",
     value: function dispatch() {
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+      for (var i = 0; i < this.tasks.length; ++i) {
+        var task = this.tasks[i]; // For each task we run it with th eprovided arguments.
 
-      try {
-        for (var _iterator = this._tasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var task = _step.value;
-          task.run.apply(task, arguments);
-          if (task["delete"]) this._tasks["delete"](task);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
+        task.run.apply(task, arguments); // If the task is set to be deleted, then we have to get the index of the current
+        // task and then splice it.
+
+        if (task["delete"]) this.tasks.splice(i, 1);
       }
     }
     /**
@@ -235,37 +215,9 @@ function () {
   }, {
     key: "remove",
     value: function remove(fn) {
-      var fnToString = fn.toString();
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = this._tasks[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var task = _step2.value;
-          var taskFnToString = task.fn.toString();
-
-          if (fnToString === taskFnToString) {
-            this._tasks["delete"](task);
-
-            break;
-          }
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-            _iterator2["return"]();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
+      this._tasks = this.tasks.filter(function (task) {
+        return task.fn.toString() != fn.toString();
+      });
       return this;
     }
     /**
@@ -277,8 +229,7 @@ function () {
   }, {
     key: "removeAll",
     value: function removeAll() {
-      this._tasks.clear();
-
+      this._tasks = [];
       return this;
     }
     /**
@@ -295,36 +246,10 @@ function () {
   }, {
     key: "pause",
     value: function pause(fn) {
-      var fnToString = fn.toString();
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = this._tasks[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var task = _step3.value;
-          var taskFnToString = task.fn.toString();
-
-          if (!task.paused && fnToString === taskFnToString) {
-            task.paused = true;
-            break;
-          }
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-            _iterator3["return"]();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-
+      var taskToPause = this.tasks.find(function (task) {
+        return !task.paused && fn.toString() === task.fn.toString();
+      });
+      if (taskToPause) taskToPause.paused = true;
       return this;
     }
     /**
@@ -338,36 +263,10 @@ function () {
   }, {
     key: "resume",
     value: function resume(fn) {
-      var fnToString = fn.toString();
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
-
-      try {
-        for (var _iterator4 = this._tasks[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var task = _step4.value;
-          var taskFnToString = task.fn.toString();
-
-          if (task.paused && fnToString === taskFnToString) {
-            task.paused = false;
-            break;
-          }
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-            _iterator4["return"]();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
-      }
-
+      var taskToResume = this.tasks.find(function (task) {
+        return task.paused && fn.toString() === task.fn.toString();
+      });
+      if (taskToResume) taskToResume.paused = false;
       return this;
     }
     /**
@@ -381,37 +280,10 @@ function () {
   }, {
     key: "noop",
     value: function noop(fn) {
-      var fnToString = fn.toString();
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
-
-      try {
-        for (var _iterator5 = this._tasks[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var task = _step5.value;
-          var taskFnToString = task.fn.toString();
-
-          if (fnToString === taskFnToString) {
-            task.fn = function () {};
-
-            break;
-          }
-        }
-      } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-            _iterator5["return"]();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
-          }
-        }
-      }
-
+      var taskToNoop = this.tasks.find(function (task) {
+        return fn.toString() === task.fn.toString();
+      });
+      if (taskToNoop) taskToNoop.fn = function () {};
       return this;
     }
   }, {
@@ -420,7 +292,7 @@ function () {
     /**
      * Returns the tasks created for this signal.
      * 
-     * @returns {Set<Task>}
+     * @returns {Array<Task>}
      */
     get: function get() {
       return this._tasks;
@@ -434,7 +306,7 @@ function () {
   }, {
     key: "numTasks",
     get: function get() {
-      return this._tasks.size;
+      return this._tasks.length;
     }
   }]);
 

@@ -1,3 +1,9 @@
+## 3.1.0 / 2020-09-06
+- [FEATURE] Changed from using sets to arrays to take advantage of array methods. There was really no need for using sets anyways as tasks were added as instances that weren't unique.
+- [MISC] Updated out-of-date dependencies to their latest versions.
+- [MISC] Set rollup cjs output to use exports default.
+- [MISC] Fixed random spacing.
+
 ## 3.0.6 / 2020-04-16
 - [MISC] Updated out-of-date dependencies to their latest versions which also fixed all possible fixed security vulnerabilities.
 

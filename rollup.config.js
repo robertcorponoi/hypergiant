@@ -6,29 +6,19 @@ import resolve from 'rollup-plugin-node-resolve';
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 export default {
-
 	input: './src/index.ts',
-
 	external: [],
-
 	plugins: [
-
 		resolve({ extensions }),
-
 		commonjs(),
-
 		babel({ extensions, runtimeHelpers: true, include: ['src/**/*'] }),
-
 	],
-
-	output: [
-		{
-			file: pkg.main,
-			format: 'cjs'
-		},
-		{
-			file: pkg.module,
-			format: 'esm',
-
-		}],
+	output: [{
+		file: pkg.main,
+		format: 'cjs',
+		exports: 'default'
+	}, {
+		file: pkg.module,
+		format: 'esm',
+	}],
 };
