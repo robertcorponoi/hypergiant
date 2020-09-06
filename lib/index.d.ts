@@ -2,8 +2,8 @@ import Task from './Task';
 /**
  * Hypergiant is used to create signals that run a task when emitted.
  *
- * One of the biggest advtantages that signals have over native JavaScript events is that they don't rely
- * on correct typing.
+ * One of the biggest advtantages that signals have over native JavaScript
+ * events is that they don't rely on correct typing.
  */
 export default class Hypergiant {
     /**
@@ -11,15 +11,15 @@ export default class Hypergiant {
      *
      * @private
        *
-       * @property {Set}
+       * @property {Array}
        */
     private _tasks;
     /**
      * Returns the tasks created for this signal.
      *
-     * @returns {Set<Task>}
+     * @returns {Array<Task>}
      */
-    get tasks(): Set<Task>;
+    get tasks(): Array<Task>;
     /**
      * Returns the number of tasks currently assigned to this signal.
      *

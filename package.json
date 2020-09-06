@@ -1,6 +1,6 @@
 {
   "name": "hypergiant",
-  "version": "3.0.6",
+  "version": "3.1.0",
   "description": "Hypergiant is a small and simple signal-like event emitter for Node.js and the browser.",
   "main": "index.js",
   "module": "hypergiant.js",
@@ -14,7 +14,7 @@
     "bundle:watch": "rollup -c --watch",
     "test": "mocha",
     "bundle:build": "npm run bundle && npm run build",
-    "prepublish": "npm run bundle:build"
+    "prepare": "npm run bundle:build"
   },
   "repository": {
     "type": "git",
